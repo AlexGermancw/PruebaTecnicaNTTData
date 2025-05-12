@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres-account:
+    image: postgres:15
+    container_name: postgres_account_service
+    restart: always
+    environment:
+      POSTGRES_DB: account_service_db
+      POSTGRES_USER: alex
+      POSTGRES_PASSWORD: sistem
+    ports:
+      - "5440:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # RabbitMQ communication
+      - "15672:15672"   # RabbitMQ management UI
+    networks:
+      - backend
+
+  account-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: account_service
+    depends_on:
+      - postgres-account
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-account:5432/account_service_db
+      SPRING_DATASOURCE_USERNAME: alex
+      SPRING_DATASOURCE_PASSWORD: sistem
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
