@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "8988375d-b4da-4b85-a392-b66f91148b46",
+		"name": "NTT_Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31731219"
+	},
+	"item": [
+		{
+			"name": "Movimiento",
+			"item": [
+				{
+					"name": "Registro Movimiento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2025-05-11\",\r\n  \"transactionType\": \"RETIRO\",\r\n  \"value\": -200.0,\r\n  \"accountId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista Registro Movimiento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listado de Movimiento, por fechas x usuario.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reportes?customerId=3&startDate=2025-05-11&endDate=2025-05-11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reportes"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "3"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-05-11"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-05-11"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuenta",
+			"item": [
+				{
+					"name": "Lista Cuentas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cuentas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cuentas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear cuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": \"123456\",\r\n  \"accountType\": \"CORRIENTE\",\r\n  \"balance\": 500.0,\r\n  \"status\": true,\r\n  \"customerId\": 3\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cuentas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cuentas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "Crear Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Jose Lema\",\r\n  \"gender\": \"MALE\",\r\n  \"age\": 31,\r\n  \"identification\": \"1234567890\",\r\n  \"address\": \"Otavalo y principal\",\r\n  \"phone\": \"098254785\",\r\n  \"password\": \"1234\",\r\n  \"status\": \"ACTIVE\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/customers/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"customers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
