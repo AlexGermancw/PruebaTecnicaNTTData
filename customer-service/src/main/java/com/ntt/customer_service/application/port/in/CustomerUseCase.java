@@ -8,5 +8,6 @@ public interface CustomerUseCase {
     CustomerResponseDTO createCustomer(CustomerRequestDTO dto);
     List<CustomerResponseDTO> getAllCustomers();
     CustomerResponseDTO getCustomerById(Long id);
-    void deleteCustomer(Long id);
+    CustomerResponseDTO updateCustomer(Long id, CustomerRequestDTO dto);
+    void deleteCustomerById(Long id);
 }

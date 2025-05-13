@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service
+spec:
+  selector:
+    matchLabels:
+      app: customer-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: customer-service
+    spec:
+      containers:
+      - name: customer-service
+        image: ContainerAppNttData.azurecr.io/customer_service:v1 
+        ports:
+        - containerPort: 8083
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-db-service:5432/customer_service_db
+        - name: SPRING_DATASOURCE_USERNAME
+          value: alex
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: sistem
+        - name: SPRING_RABBITMQ_HOST
+          value: rabbitmq-service
+        - name: SPRING_RABBITMQ_PORT
+          value: "5672"

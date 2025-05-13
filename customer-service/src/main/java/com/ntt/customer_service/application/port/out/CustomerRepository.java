@@ -9,5 +9,6 @@ public interface CustomerRepository {
     Customer save(Customer customer);
     Optional<Customer> findById(Long id);
     List<Customer> findAll();
-    void deleteById(Long id);
+    void deleteById(Long id);    
+    boolean existsByIdentification(String identification);
 }

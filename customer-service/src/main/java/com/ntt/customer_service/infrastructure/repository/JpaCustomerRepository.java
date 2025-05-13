@@ -35,4 +35,9 @@ public class JpaCustomerRepository implements CustomerRepository {
     public void deleteById(Long id) {
         springDataCustomerRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByIdentification(String identification) {
+        return springDataCustomerRepository.existsByIdentification(identification);
+    }
 }

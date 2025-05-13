@@ -20,8 +20,27 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"     # RabbitMQ communication
-      - "15672:15672"   # RabbitMQ management UI
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend
+
+  customer-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: customer_service
+    depends_on:
+      - postgres-db
+      - rabbitmq
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/customer_service_db
+      SPRING_DATASOURCE_USERNAME: alex
+      SPRING_DATASOURCE_PASSWORD: sistem
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
     networks:
       - backend
 

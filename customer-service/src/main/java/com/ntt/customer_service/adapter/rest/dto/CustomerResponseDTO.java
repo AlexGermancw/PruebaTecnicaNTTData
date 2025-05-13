@@ -10,5 +10,6 @@ import lombok.*;
 public class CustomerResponseDTO {
     private Long customerId;
     private String name;
+    private String identification;
     private CustomerStatusEnum status;
 }

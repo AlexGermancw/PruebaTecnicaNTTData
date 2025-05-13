@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerRequestDTO implements Serializable {
-    private long customerId;
     private String name;
     private String gender;
     private int age;

@@ -1,0 +1,41 @@
+# postgres-db.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-db
+spec:
+  selector:
+    matchLabels:
+      app: postgres-db
+  serviceName: "postgres-db-service"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+      - name: postgres-db
+        image: postgres:15
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: customer_service_db
+        - name: POSTGRES_USER
+          value: alex
+        - name: POSTGRES_PASSWORD
+          value: sistem
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: pgdata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
