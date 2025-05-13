@@ -23,9 +23,9 @@ spec:
         - name: POSTGRES_DB
           value: customer_service_db
         - name: POSTGRES_USER
-          value: alex
+          value: user
         - name: POSTGRES_PASSWORD
-          value: sistem
+          value: password
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         volumeMounts:

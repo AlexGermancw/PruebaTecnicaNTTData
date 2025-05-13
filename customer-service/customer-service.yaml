@@ -21,9 +21,9 @@ spec:
         - name: SPRING_DATASOURCE_URL
           value: jdbc:postgresql://postgres-db-service:5432/customer_service_db
         - name: SPRING_DATASOURCE_USERNAME
-          value: alex
+          value: user
         - name: SPRING_DATASOURCE_PASSWORD
-          value: sistem
+          value: password
         - name: SPRING_RABBITMQ_HOST
           value: rabbitmq-service
         - name: SPRING_RABBITMQ_PORT
