@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "3d41fcce-d3b3-4922-9e51-899a3adf488b",
+		"name": "NTT_DATA_APIM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31731219"
+	},
+	"item": [
+		{
+			"name": "Lista Clientes",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Cliente por ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "0cdc6ed93c554095830e85b091b8e7e0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alex C\",\r\n    \"gender\": \"masculino\",\r\n    \"age\": 28,\r\n    \"identification\": \"17276245\",\r\n    \"address\": \"sangolqui\",\r\n    \"phone\": \"099632\",\r\n    \"password\": \"produccion\",\r\n    \"status\": \"ACTIVE\"\r\n}"
+				},
+				"url": {
+					"raw": "https://ntt-apim.azure-api.net/api/customers/1",
+					"protocol": "https",
+					"host": [
+						"ntt-apim",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"api",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar por ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "0cdc6ed93c554095830e85b091b8e7e0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jose Lem\",\r\n    \"gender\": \"masculino\",\r\n    \"age\": 25,\r\n    \"identification\": \"1234567890\",\r\n    \"address\": \"sangolqui\",\r\n    \"phone\": \"99999\",\r\n    \"password\": \"qwert\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ntt-apim.azure-api.net/api/customers/1",
+					"protocol": "https",
+					"host": [
+						"ntt-apim",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"api",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "0cdc6ed93c554095830e85b091b8e7e0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alex C\",\r\n    \"gender\": \"masculino\",\r\n    \"age\": 28,\r\n    \"identification\": \"17276245\",\r\n    \"address\": \"sangolqui\",\r\n    \"phone\": \"099632\",\r\n    \"password\": \"produccion\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ntt-apim.azure-api.net/api/customers",
+					"protocol": "https",
+					"host": [
+						"ntt-apim",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "0cdc6ed93c554095830e85b091b8e7e0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alex C\",\r\n    \"gender\": \"masculino\",\r\n    \"age\": 28,\r\n    \"identification\": \"17276245\",\r\n    \"address\": \"sangolqui\",\r\n    \"phone\": \"099632\",\r\n    \"password\": \"produccion\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ntt-apim.azure-api.net/api/customers/3",
+					"protocol": "https",
+					"host": [
+						"ntt-apim",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"api",
+						"customers",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
