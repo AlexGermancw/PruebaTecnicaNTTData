@@ -54,17 +54,31 @@ Construye las imágenes Docker.
 
 Ejecuta docker-compose up -d.
 
-### 6. Acceso y pruebas
-API Account Service: http://localhost:8080/swagger-ui.html o /swagger-ui/index.html
+### 6. Acceso local a servicios y pruebas
+- Account Service (Swagger UI)
+http://localhost:8080/swagger-ui/index.html
 
-API Customer Service: http://localhost:8081/swagger-ui.html o /swagger-ui/index.html
+- Customer Service (Swagger UI)
+http://localhost:8081/swagger-ui/index.html
 
-RabbitMQ Admin: http://localhost:15672 (usuario: guest, clave: guest)
+- Panel de administración RabbitMQ
+http://localhost:15672
+Usuario: guest
+Contraseña: guest
 
-### Notas
-Asegúrate de que los puertos 8080, 8081, 5440 y 15672 estén disponibles.
+### 7. Swagger publicado en la nube
+- Customer Service desplegado en Azure
+http://57.151.70.239:8083/swagger-ui/index.html
 
-Puedes modificar el archivo docker-compose.yml para cambiar configuraciones de red, puertos y bases de datos si es necesario.
+### 8. API publicada en Azure APIM (con autenticación por suscripción)
+- Endpoint para listar clientes:
+https://ntt-apim.azure-api.net/api/customers?subscription-key=0cdc6ed93c554095830e85b091b8e7e0
 
-## Pruebas con Postman
-Se adjunta el archivo .json de colección de Postman con los endpoints necesarios para probar la solución. Puedes importarlo en Postman para empezar a hacer peticiones.
+- ⚠️ Se incluye el archivo NTT_DATA_APIM.postman_collection.json con la colección de endpoints para pruebas desde Postman.
+
+### 9. Pruebas con Postman
+Importa el archivo NTT_DATA_APIM.postman_collection.json en Postman para acceder fácilmente a todos los endpoints y realizar pruebas funcionales de la solución.
+
+## Notas
+Asegúrate de que los puertos 8080, 8081, 5440 y 15672 estén disponibles en tu entorno local.
+Puedes ajustar configuraciones de red, puertos y base de datos desde el archivo docker-compose.yml.
