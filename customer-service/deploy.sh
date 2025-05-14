@@ -5,9 +5,6 @@ set -e
 echo " Limpiando builds anteriores..."
 mvn clean
 
-echo " Limpiando contenedores anteriores "
-docker-compose down -v
-
 echo " Empaquetando servicios (sin tests)..."
 mvn package -DskipTests
 

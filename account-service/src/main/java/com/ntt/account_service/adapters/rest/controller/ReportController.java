@@ -31,6 +31,7 @@ public class ReportController {
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
         @Parameter(description = "Formato (aaaa-mm-dd)")
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+            System.out.println("controler");
         return reportService.getAccountStatement(customerId, startDate, endDate);
     }
 }

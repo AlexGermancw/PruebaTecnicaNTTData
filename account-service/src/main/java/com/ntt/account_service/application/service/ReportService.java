@@ -17,6 +17,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +30,8 @@ public class ReportService implements ReportUseCase {
     private final LoadTransactionPort loadTransactionPort;
     private final RabbitTemplate rabbitTemplate;
     private final RestTemplate restTemplate;
+    private final Map<Long, CompletableFuture<CustomerDTO>> pendingRequests = new ConcurrentHashMap<>();
+
     private CustomerDTO customerResponseDTO;
 
     @Value("${customer-service.base-url}")
@@ -47,31 +53,38 @@ public class ReportService implements ReportUseCase {
 
     @Override
     public AccountStatementDTO getAccountStatement(Long customerId, LocalDate startDate, LocalDate endDate) {
+        CompletableFuture<CustomerDTO> future = new CompletableFuture<>();
+        pendingRequests.put(customerId, future);
 
         sendCustomerId(customerId);
 
+        try {
+            System.out.println("Esperando respuesta microservicio customer");
+            customerResponseDTO = future.get(30, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error: No se recibió respuesta del microservicio customer para el ID: " + customerId);
+        } finally {
+            pendingRequests.remove(customerId);
+        }
+
         return buildAccountStatementDTO(customerId, startDate, endDate);
     }
+
 
     private void sendCustomerId(Long customerId) {
         rabbitTemplate.convertAndSend("customerExchange", "customerRoutingKey", customerId);
     }
 
     @RabbitListener(queues = "${customer.response.queue.name}")
-    public void receiveCustomerResponse(Long customerId) {
-        String fullUrl = baseUrl + customerPath + customerId;
-        
-        try {
-            customerResponseDTO = restTemplate.getForObject(fullUrl, CustomerDTO.class);
-        } catch (HttpClientErrorException e) {
-            System.out.println("Error: Usuario no encontrado con ID: " + customerId);
-            if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
-                customerResponseDTO = null;
-            } else {
-                customerResponseDTO = null;
-            }
+    public void receiveCustomerResponse(CustomerDTO customer) {
+        Long customerId = customer.getCustomerId();
+        CompletableFuture<CustomerDTO> future = pendingRequests.get(customerId);
+
+        if (future != null) {
+            future.complete(customer);
         }
     }
+
     
     private AccountStatementDTO buildAccountStatementDTO(Long customerId, LocalDate startDate, LocalDate endDate) {
         if (customerResponseDTO == null) {

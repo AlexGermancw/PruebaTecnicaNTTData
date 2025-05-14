@@ -11,4 +11,5 @@ public class AccountResponseDTO {
     private Long accountId;
     private String accountNumber;
     private String status;
+    private Long customerId;
 }

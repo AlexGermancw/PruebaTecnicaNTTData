@@ -54,7 +54,7 @@ public class AccountService implements AccountUseCase {
         account.setCustomerId(dto.getCustomerId());
 
         Account savedAccount = loadAccountPort.save(account);
-        return new AccountResponseDTO(savedAccount.getAccountId(), savedAccount.getAccountNumber(), savedAccount.getStatus());
+        return new AccountResponseDTO(savedAccount.getAccountId(), savedAccount.getAccountNumber(), savedAccount.getStatus(),savedAccount.getCustomerId());
     }
 
     @Override
@@ -64,7 +64,8 @@ public class AccountService implements AccountUseCase {
                 .map(account -> new AccountResponseDTO(
                         account.getAccountId(),
                         account.getAccountNumber(),
-                        account.getStatus()))
+                        account.getStatus(),
+                        account.getCustomerId()))
                 .collect(Collectors.toList());
     }
 
@@ -76,7 +77,8 @@ public class AccountService implements AccountUseCase {
         return new AccountResponseDTO(
                 account.getAccountId(),
                 account.getAccountNumber(),
-                account.getStatus()
+                account.getStatus(),
+                account.getCustomerId()
         );
     }
 
