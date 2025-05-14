@@ -10,7 +10,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -57,14 +59,23 @@ public class ReportService implements ReportUseCase {
 
     @RabbitListener(queues = "${customer.response.queue.name}")
     public void receiveCustomerResponse(Long customerId) {
-
         String fullUrl = baseUrl + customerPath + customerId;
-        customerResponseDTO = restTemplate.getForObject(fullUrl, CustomerDTO.class);
+        
+        try {
+            customerResponseDTO = restTemplate.getForObject(fullUrl, CustomerDTO.class);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Error: Usuario no encontrado con ID: " + customerId);
+            if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                customerResponseDTO = null;
+            } else {
+                customerResponseDTO = null;
+            }
+        }
     }
     
     private AccountStatementDTO buildAccountStatementDTO(Long customerId, LocalDate startDate, LocalDate endDate) {
         if (customerResponseDTO == null) {
-            return null;
+            throw new IllegalArgumentException("Error: Usuario no encontrado en el microservicio customer con ID: " + customerId);
         }
 
         List<Account> accounts = loadAccountPort.findByCustomerId(customerId);

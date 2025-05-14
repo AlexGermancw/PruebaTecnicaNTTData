@@ -16,15 +16,6 @@ services:
     networks:
       - backend
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"     # RabbitMQ communication
-      - "15672:15672"   # RabbitMQ management UI
-    networks:
-      - backend
-
   account-service:
     build:
       context: .
@@ -32,17 +23,28 @@ services:
     container_name: account_service
     depends_on:
       - postgres-account
-      - rabbitmq
+      #- rabbitmq
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-account:5432/account_service_db
       SPRING_DATASOURCE_USERNAME: alex
       SPRING_DATASOURCE_PASSWORD: sistem
+
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
     ports:
       - "8080:8080"
     networks:
       - backend
+
+# DESCOMENTAR SI NO ESTA LEVANTADO EL DOCKER
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    container_name: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    networks:
+#      - backend
 
 volumes:
   pgdata:
